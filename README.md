@@ -2,7 +2,7 @@
 
 The goal of _I13 Key Value Store_ is to teach various socket handling techniques in Java. The only commands supported so far are `PUT table key value` and `GET table key`
 
-The socket handling techniques are implemented
+Following socket handling techniques are implemented:
 - Java 7 NIO
 - Single threaded and blocking
 - One thread per connection
@@ -12,8 +12,10 @@ The socket handling techniques are implemented
 `mvn test`
 
 ## Running
-`mvn assembly:assembly`
-`java -jar target/niokv-jar-with-dependencies.jar`
+```
+mvn assembly:assembly
+java -jar target/niokv-jar-with-dependencies.jar
+```
 
 If you don't have maven installed you can run it from your IDE ([Eclipse](http://www.eclipse.org/), [IntelliJ](https://www.jetbrains.com/idea/))
 
