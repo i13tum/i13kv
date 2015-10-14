@@ -53,6 +53,8 @@ Ideas:
 - Reactive programming
 - Notifications
 - Persistence to disk
+- Client
+- HTTP interface
 - ...
 
 
