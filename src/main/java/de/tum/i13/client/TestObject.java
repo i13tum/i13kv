@@ -50,4 +50,29 @@ public class TestObject {
     public void setGrade(Double grade) {
         this.grade = grade;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TestObject that = (TestObject) o;
+
+        if (grade != null ? !grade.equals(that.grade) : that.grade != null) return false;
+        if (finalTestPoints != null ? !finalTestPoints.equals(that.finalTestPoints) : that.finalTestPoints != null)
+            return false;
+        if (firstExcercisePoints != null ? !firstExcercisePoints.equals(that.firstExcercisePoints) : that.firstExcercisePoints != null)
+            return false;
+        return !(secondExcercisePoints != null ? !secondExcercisePoints.equals(that.secondExcercisePoints) : that.secondExcercisePoints != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = grade != null ? grade.hashCode() : 0;
+        result = 31 * result + (finalTestPoints != null ? finalTestPoints.hashCode() : 0);
+        result = 31 * result + (firstExcercisePoints != null ? firstExcercisePoints.hashCode() : 0);
+        result = 31 * result + (secondExcercisePoints != null ? secondExcercisePoints.hashCode() : 0);
+        return result;
+    }
 }
