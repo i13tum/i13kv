@@ -1,13 +1,11 @@
 package de.tum.i13;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketAddress;
 
 /**
  * Created by chris on 08.01.15.
@@ -41,7 +39,7 @@ public class IntegrationTestKV {
             @Override
             public void run() {
                 try {
-                    de.tum.i13.nio.StartSimpleNio.main(new String[]{port.toString()});
+                    de.tum.i13.server.nio.StartSimpleNio.main(new String[]{port.toString()});
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

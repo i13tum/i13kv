@@ -1,6 +1,6 @@
-package de.tum.i13.nio;
+package de.tum.i13.server.nio;
 
-import de.tum.i13.kv.KVStore;
+import de.tum.i13.server.kv.KVStore;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

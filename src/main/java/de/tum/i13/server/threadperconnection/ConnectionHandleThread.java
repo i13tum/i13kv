@@ -1,20 +1,22 @@
-package de.tum.i13.threadpool;
+package de.tum.i13.server.threadperconnection;
 
-import de.tum.i13.kv.KVStore;
+import de.tum.i13.server.kv.KVStore;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
  * Created by chris on 09.01.15.
  */
-public class ConnectionHandlerRunnable implements Runnable {
-
+public class ConnectionHandleThread extends Thread {
     private KVStore kv;
     private Socket clientSocket;
 
-    public ConnectionHandlerRunnable(KVStore kv, Socket clientSocket) {
-        this.kv = kv;
+    public ConnectionHandleThread(KVStore store, Socket clientSocket) {
+        this.kv = store;
         this.clientSocket = clientSocket;
     }
 
@@ -30,15 +32,7 @@ public class ConnectionHandlerRunnable implements Runnable {
                 out.write(res);
                 out.flush();
             }
-
-            clientSocket.close();
-
         } catch(Exception ex) {
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             ex.printStackTrace();
         }
     }

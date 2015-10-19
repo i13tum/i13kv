@@ -15,6 +15,11 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
@@ -29,7 +34,7 @@
                     <finalName>niokv</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>de.tum.i13.nio.StartSimpleNio</mainClass>
+                            <mainClass>de.tum.i13.server.nio.StartSimpleNio</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

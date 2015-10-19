@@ -1,4 +1,4 @@
-package de.tum.i13.reactive;
+package de.tum.i13.server.reactive;
 
 import rx.Observable;
 import rx.functions.Action1;

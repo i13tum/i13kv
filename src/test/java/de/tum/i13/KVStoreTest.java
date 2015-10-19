@@ -1,6 +1,6 @@
 package de.tum.i13;
 
-import de.tum.i13.kv.KVStore;
+import de.tum.i13.server.kv.KVStore;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

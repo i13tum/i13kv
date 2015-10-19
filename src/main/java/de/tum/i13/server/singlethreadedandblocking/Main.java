@@ -1,6 +1,6 @@
-package de.tum.i13.singlethreadedandblocking;
+package de.tum.i13.server.singlethreadedandblocking;
 
-import de.tum.i13.kv.KVStore;
+import de.tum.i13.server.kv.KVStore;
 
 import java.io.*;
 import java.net.InetSocketAddress;

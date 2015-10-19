@@ -1,6 +1,5 @@
-package de.tum.i13.kv;
+package de.tum.i13.server.kv;
 
-import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
