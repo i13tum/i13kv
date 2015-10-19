@@ -15,11 +15,8 @@ public class TestClient {
         try(ActiveConnection activeConnection = kvcb.connect()) {
 
             KVClient kvc = new KVClient(activeConnection);
-            ArrayList<Double> gradeList = new ArrayList<>();
-            gradeList.add(1.3);
-            gradeList.add(2.3);
-
-            if(kvc.put("mygrades", "middleware", gradeList)); {
+            TestObject to = new TestObject(1.3, 92, 19, 13);
+            if(kvc.put("mygrades", "middleware", to)); {
                 System.out.println("successfully stored");
             }
         }

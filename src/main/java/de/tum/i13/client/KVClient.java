@@ -1,7 +1,7 @@
 package de.tum.i13.client;
 
 import com.google.gson.Gson;
-import com.sun.xml.internal.fastinfoset.util.StringArray;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -17,7 +17,7 @@ public class KVClient {
     public KVClient(ActiveConnection activeConnection) {
 
         this.activeConnection = activeConnection;
-        this.gs = new Gson();
+        this.gs = new GsonBuilder().setPrettyPrinting().create();
     }
 
     private String convertBase64(String toConvert) {
