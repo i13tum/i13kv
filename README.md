@@ -8,6 +8,13 @@ Following socket handling techniques are implemented:
 - One thread per connection
 - Threadpool
 
+## Install Java and Maven
+
+Maven is optional. You only need it if you want to run the build and tests from commandline.
+You can use an IDE ([Eclipse](http://www.eclipse.org/), [IntelliJ IDEA](https://www.jetbrains.com/student/))
+
+Install [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
 ## Tests
 `mvn test`
 
@@ -17,7 +24,6 @@ mvn assembly:assembly
 java -jar target/niokv-jar-with-dependencies.jar
 ```
 
-If you don't have maven installed you can run it from your IDE ([Eclipse](http://www.eclipse.org/), [IntelliJ](https://www.jetbrains.com/idea/))
 
 ## Connect via telnet (Linux)
 Install telnet `apt-get install telnet`
@@ -49,7 +55,7 @@ GET turingawards 2013
 Pull requests welcome!
 
 Ideas:
-- Additional operators (List, Search, [more ideas](http://redis.io/commands), ...)
+- Additional operators (Delete, Search, [more ideas](http://redis.io/commands), ...)
 - Reactive programming
 - Notifications
 - Persistence to disk
