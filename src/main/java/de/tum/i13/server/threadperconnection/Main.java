@@ -19,15 +19,13 @@ public class Main {
         if(args.length == 1) {
             port = Integer.parseInt(args[0]);
         }
-
         //bind the socketserver only to localhost
         final ServerSocket serverSocket = new ServerSocket();
-        serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                System.out.println("Closing selectionKey");
+                System.out.println("Closing thread per connection kv server");
                 try {
                     serverSocket.close();
                 } catch (IOException e) {
@@ -36,8 +34,13 @@ public class Main {
             }
         });
 
+        //bind to localhost only
+        serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
+
         while (true) {
             Socket clientSocket = serverSocket.accept();
+
+            //When we accept a connection, we start a new Thread for this connection
             Thread th = new ConnectionHandleThread(kv, clientSocket);
             th.start();
         }

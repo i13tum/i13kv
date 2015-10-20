@@ -23,13 +23,10 @@ public class Main {
             port = Integer.parseInt(args[0]);
         }
 
-        //bind the socketserver only to localhost
-        serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
-
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                System.out.println("Closing selectionKey");
+                System.out.println("Closing threadpool connection kv server");
                 try {
                     serverSocket.close();
                 } catch (IOException e) {
@@ -38,10 +35,17 @@ public class Main {
             }
         });
 
+        //bind the socketserver only to localhost
+        serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
+
+        //Start a threadpool with a fixed amount of threads
         ExecutorService es = Executors.newFixedThreadPool(4);
 
         while (true) {
             Socket clientSocket = serverSocket.accept();
+
+            //Submit the connectionhandler to the threadpool
+            //The connections are closed after connecting to the server, if not we could only support 4 requests at the same time
             es.submit(new ConnectionHandlerRunnable(kv, clientSocket));
         }
     }

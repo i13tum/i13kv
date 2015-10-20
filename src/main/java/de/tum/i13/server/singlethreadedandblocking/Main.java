@@ -25,13 +25,10 @@ public class Main {
             port = Integer.parseInt(args[0]);
         }
 
-        //bind the socketserver only to localhost
-        serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
-
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                System.out.println("Closing selectionKey");
+                System.out.println("Closing single threaded and blocking kv server");
                 try {
                     serverSocket.close();
                 } catch (IOException e) {
@@ -39,6 +36,9 @@ public class Main {
                 }
             }
         });
+
+        //bind the socketserver only to localhost
+        serverSocket.bind(new InetSocketAddress("127.0.0.1", port));
 
         while (true) {
 
