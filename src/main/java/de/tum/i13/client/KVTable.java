@@ -53,7 +53,7 @@ public class KVTable<T> {
     public Boolean delete(String key) throws IOException {
         this.activeConnection.write("DELETE " + this.table + " " + key + "\r\n");
         String result = this.activeConnection.readline();
-        return result.equals("OK");
+        return result.equals("DELETED");
     }
 
     public Boolean exists(String key) throws IOException {

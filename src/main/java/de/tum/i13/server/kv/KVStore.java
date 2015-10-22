@@ -62,17 +62,19 @@ public class KVStore {
 
             } else if (command.equalsIgnoreCase("EXISTS")) { // checks if the
                                                              // key exists
-                try {
                     String table = st.nextToken();
                     String key = st.nextToken();
 
-                    boolean res = store.containsValue(table + middledelimiter + key);
+                    boolean res = store.containsKey(table + middledelimiter + key);
                     System.out.println(String.format("#EXISTS:%s%s-%s", table, key, res));
 
-                    return "EXISTS " + res + "\r\n";
-                } catch (NoSuchElementException ex) {
-                    return "NOT_FOUND\r\n";
-                }
+                    if(res) {
+                        return "EXISTS\r\n";
+                    }
+                    else {
+                        return "NOT_FOUND\r\n";
+                    }
+
             } else {
                 return "DID_NOT_UNDERSTAND\r\n";
             }
