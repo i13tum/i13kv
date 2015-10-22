@@ -59,6 +59,6 @@ public class KVTable<T> {
     public Boolean exists(String key) throws IOException {
         this.activeConnection.write("EXISTS " + this.table + " " + key + "\r\n");
         String result = this.activeConnection.readline();
-        return result.equals("true");
+        return result.equals("EXISTS");
     }
 }

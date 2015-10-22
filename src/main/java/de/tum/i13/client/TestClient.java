@@ -32,7 +32,7 @@ public class TestClient {
                 System.out.println("Error!");
             }
 
-            System.out.print("DELTE: Removing assignment information... ");
+            System.out.print("DELETE: Removing assignment information... ");
             if (kvc.delete(KEY_MIDDLEWARE)) {
                 System.out.println("Success!");
             } else {
