@@ -1,6 +1,6 @@
 #I13 KV
 
-The goal of _I13 Key Value Store_ is to teach various socket handling techniques in Java. The only commands supported so far are `PUT table key value` and `GET table key`
+The goal of _I13 Key Value Store_ is to teach various socket handling techniques in Java. The only commands supported so far are `PUT, GET, DELETE, EXISTS`
 
 Following socket handling techniques are implemented:
 - Java 7 NIO
@@ -55,7 +55,7 @@ GET turingawards 2013
 Pull requests welcome!
 
 Ideas:
-- Additional operators (Delete, Search, [more ideas](http://redis.io/commands), ...)
+- Additional operators (INC, FLUSHALL, ... [more ideas](http://redis.io/commands), ...)
 - Reactive programming
 - Notifications
 - Persistence to disk
