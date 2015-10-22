@@ -1,5 +1,7 @@
 #I13 KV
 
+[![Build status](https://travis-ci.org/i13tum/i13kv.svg?branch=master)](https://travis-ci.org/i13tum/i13kv)
+
 The goal of _I13 Key Value Store_ is to teach various socket handling techniques in Java. The only commands supported so far are `PUT, GET, DELETE, EXISTS`
 
 Following socket handling techniques are implemented:
