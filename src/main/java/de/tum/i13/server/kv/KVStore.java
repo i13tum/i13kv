@@ -52,17 +52,13 @@ public class KVStore {
             } else if (command.equalsIgnoreCase("DELETE")) { // deletes the
                                                              // key-value
                                                              // pair
-                try {
-                    String table = st.nextToken();
-                    String key = st.nextToken();
+                String table = st.nextToken();
+                String key = st.nextToken();
 
-                    String res = store.remove(table + middledelimiter + key);
-                    System.out.println(String.format("#DELETE:%s%s-%s", table, key, res));
+                String res = store.remove(table + middledelimiter + key);
+                System.out.println(String.format("#DELETE:%s%s-%s", table, key, res));
 
-                    return (res != null ? "OK" : "ERROR") + "\r\n";
-                } catch (NoSuchElementException ex) {
-                    return "ERROR\r\n";
-                }
+                return (res != null ? "DELETED" : "NOT_FOUND") + "\r\n";
 
             } else if (command.equalsIgnoreCase("EXISTS")) { // checks if the
                                                              // key exists
@@ -73,9 +69,9 @@ public class KVStore {
                     boolean res = store.containsValue(table + middledelimiter + key);
                     System.out.println(String.format("#EXISTS:%s%s-%s", table, key, res));
 
-                    return res + "\r\n";
+                    return "EXISTS " + res + "\r\n";
                 } catch (NoSuchElementException ex) {
-                    return "false\r\n";
+                    return "NOT_FOUND\r\n";
                 }
             } else {
                 return "DID_NOT_UNDERSTAND\r\n";
