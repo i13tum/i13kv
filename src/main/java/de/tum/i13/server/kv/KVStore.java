@@ -8,22 +8,20 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by chris on 08.01.15.
  */
 public class KVStore {
-
     final String middledelimiter = "#~#";
-    public final String TELNET_ENCODING = "ISO-8859-1"; //encoding of telenet
     ConcurrentHashMap<String, String> store;
-
 
     public KVStore() {
         this.store = new ConcurrentHashMap<String, String>();
     }
 
     public String process(String firstLine) {
-        try{
+        try {
             StringTokenizer st = new StringTokenizer(firstLine, " \r\n");
             String command = st.nextToken();
 
-            if (command.equalsIgnoreCase("GET")) {
+            if (command.equalsIgnoreCase("GET")) { // retrieves the stored value
+                                                   // for a given key
                 try {
                     String table = st.nextToken();
                     String key = st.nextToken();
@@ -32,11 +30,13 @@ public class KVStore {
 
                     System.out.println(String.format("#GET:%s%s-%s", table, key, res));
                     return res + "\r\n";
-                }catch (NoSuchElementException ex) {
+                } catch (NoSuchElementException ex) {
                     return "ERROR\r\n";
                 }
 
-            } else if (command.equalsIgnoreCase("PUT")) {
+            } else if (command.equalsIgnoreCase("PUT")) { // updates the stored
+                                                          // value for a given
+                                                          // key
                 try {
                     String table = st.nextToken();
                     String key = st.nextToken();
@@ -49,12 +49,36 @@ public class KVStore {
                 } catch (NoSuchElementException ex) {
                     return "ERROR\r\n";
                 }
-            }
-            else {
+            } else if (command.equalsIgnoreCase("DELETE")) { // deletes the
+                                                             // key-value
+                                                             // pair
+                String table = st.nextToken();
+                String key = st.nextToken();
+
+                String res = store.remove(table + middledelimiter + key);
+                System.out.println(String.format("#DELETE:%s%s-%s", table, key, res));
+
+                return (res != null ? "DELETED" : "NOT_FOUND") + "\r\n";
+
+            } else if (command.equalsIgnoreCase("EXISTS")) { // checks if the
+                                                             // key exists
+                    String table = st.nextToken();
+                    String key = st.nextToken();
+
+                    boolean res = store.containsKey(table + middledelimiter + key);
+                    System.out.println(String.format("#EXISTS:%s%s-%s", table, key, res));
+
+                    if(res) {
+                        return "EXISTS\r\n";
+                    }
+                    else {
+                        return "NOT_FOUND\r\n";
+                    }
+
+            } else {
                 return "DID_NOT_UNDERSTAND\r\n";
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Exception occured:");
             ex.printStackTrace();
 

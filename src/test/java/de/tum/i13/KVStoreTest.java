@@ -48,4 +48,30 @@ public class KVStoreTest {
         String getRes = store.process("GET");
         Assert.assertThat(getRes, containsString("ERROR"));
     }
+
+    @Test
+    public void delete_not_existing_key() {
+        String getRes = store.process("DELETE table key\r\n");
+        Assert.assertThat(getRes, containsString("NOT_FOUND"));
+    }
+
+    @Test
+    public void delete_existing_key() {
+        store.process("PUT table key value\r\n");
+        String getRes = store.process("DELETE table key\r\n");
+        Assert.assertThat(getRes, containsString("DELETED"));
+    }
+
+    @Test
+    public void non_existing_key_should_return_not_found() {
+        String res = store.process("EXISTS table key\r\n");
+        Assert.assertThat(res, containsString("NOT_FOUND"));
+    }
+
+    @Test
+    public void exist_should_return_exists_on_existing_key() {
+        store.process("PUT table key value\r\n");
+        String res = store.process("EXISTS table key\r\n");
+        Assert.assertThat(res, containsString("EXISTS"));
+    }
 }

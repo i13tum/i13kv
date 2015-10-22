@@ -8,7 +8,7 @@ import java.net.Socket;
 /**
  * Created by chris on 19.10.15.
  */
-public class ActiveConnection implements AutoCloseable{
+public class ActiveConnection implements AutoCloseable {
     private final Socket socket;
     private final PrintWriter output;
     private final BufferedReader input;

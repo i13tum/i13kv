@@ -5,10 +5,10 @@ import java.io.IOException;
 /**
  * Created by chris on 14.10.14.
  */
-public class StartSimpleNio {
+public class StartSimpleNioServer {
 
     public static void main(String[] args) throws IOException {
-        SimpleNio sn = new SimpleNio();
+        SimpleNioServer sn = new SimpleNioServer();
 
         Integer port = 5559;
         if (args.length == 1) {

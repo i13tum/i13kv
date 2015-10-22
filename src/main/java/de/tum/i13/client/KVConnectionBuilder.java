@@ -20,7 +20,7 @@ public class KVConnectionBuilder {
     }
 
     public ActiveConnection connect() throws IOException {
-        Socket s = new Socket(host, port);
+        Socket s = new Socket(this.host, this.port);
 
         PrintWriter output = new PrintWriter(s.getOutputStream());
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
