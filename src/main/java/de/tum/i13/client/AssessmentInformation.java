@@ -1,18 +1,16 @@
 package de.tum.i13.client;
 
-import java.util.DoubleSummaryStatistics;
-
 /**
  * Created by chris on 19.10.15.
  */
-public class TestObject {
+public class AssessmentInformation {
 
     private Double grade;
     private Integer finalTestPoints;
     private Integer firstExcercisePoints;
     private Integer secondExcercisePoints;
 
-    public TestObject(Double grade, Integer finalTestPoints, Integer firstExcercisePoints, Integer secondExcercisePoints) {
+    public AssessmentInformation(Double grade, Integer finalTestPoints, Integer firstExcercisePoints, Integer secondExcercisePoints) {
         this.grade = grade;
         this.finalTestPoints = finalTestPoints;
         this.firstExcercisePoints = firstExcercisePoints;
@@ -56,7 +54,7 @@ public class TestObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TestObject that = (TestObject) o;
+        AssessmentInformation that = (AssessmentInformation) o;
 
         if (grade != null ? !grade.equals(that.grade) : that.grade != null) return false;
         if (finalTestPoints != null ? !finalTestPoints.equals(that.finalTestPoints) : that.finalTestPoints != null)
@@ -64,7 +62,6 @@ public class TestObject {
         if (firstExcercisePoints != null ? !firstExcercisePoints.equals(that.firstExcercisePoints) : that.firstExcercisePoints != null)
             return false;
         return !(secondExcercisePoints != null ? !secondExcercisePoints.equals(that.secondExcercisePoints) : that.secondExcercisePoints != null);
-
     }
 
     @Override

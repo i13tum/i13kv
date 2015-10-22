@@ -39,7 +39,7 @@ public class IntegrationTestKV {
             @Override
             public void run() {
                 try {
-                    de.tum.i13.server.nio.StartSimpleNio.main(new String[]{port.toString()});
+                    de.tum.i13.server.nio.StartSimpleNioServer.main(new String[]{port.toString()});
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

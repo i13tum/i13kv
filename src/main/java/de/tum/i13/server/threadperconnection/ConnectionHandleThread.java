@@ -1,6 +1,7 @@
 package de.tum.i13.server.threadperconnection;
 
 import de.tum.i13.server.kv.KVStore;
+import de.tum.i13.shared.Constants;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -23,8 +24,8 @@ public class ConnectionHandleThread extends Thread {
     @Override
     public void run() {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), kv.TELNET_ENCODING));
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), kv.TELNET_ENCODING));
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), Constants.TELNET_ENCODING));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), Constants.TELNET_ENCODING));
 
             String firstLine;
             while ((firstLine = in.readLine()) != null) {
