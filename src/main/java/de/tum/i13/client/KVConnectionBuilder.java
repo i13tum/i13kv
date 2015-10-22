@@ -11,20 +11,20 @@ import java.net.Socket;
  */
 public class KVConnectionBuilder {
 
-	private final String host;
-	private final int port;
+    private final String host;
+    private final int port;
 
-	public KVConnectionBuilder(String host, int port) {
-		this.host = host;
-		this.port = port;
-	}
+    public KVConnectionBuilder(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
 
-	public ActiveConnection connect() throws IOException {
-		Socket s = new Socket(this.host, this.port);
+    public ActiveConnection connect() throws IOException {
+        Socket s = new Socket(this.host, this.port);
 
-		PrintWriter output = new PrintWriter(s.getOutputStream());
-		BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        PrintWriter output = new PrintWriter(s.getOutputStream());
+        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-		return new ActiveConnection(s, output, input);
-	}
+        return new ActiveConnection(s, output, input);
+    }
 }

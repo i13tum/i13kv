@@ -7,15 +7,15 @@ import java.io.IOException;
  */
 public class StartSimpleNioServer {
 
-	public static void main(String[] args) throws IOException {
-		SimpleNioServer sn = new SimpleNioServer();
+    public static void main(String[] args) throws IOException {
+        SimpleNioServer sn = new SimpleNioServer();
 
-		Integer port = 5559;
-		if (args.length == 1) {
-			port = Integer.parseInt(args[0]);
-		}
+        Integer port = 5559;
+        if (args.length == 1) {
+            port = Integer.parseInt(args[0]);
+        }
 
-		sn.bindSockets("127.0.0.1", port);
-		sn.start();
-	}
+        sn.bindSockets("127.0.0.1", port);
+        sn.start();
+    }
 }

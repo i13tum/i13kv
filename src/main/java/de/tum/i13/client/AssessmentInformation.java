@@ -10,7 +10,8 @@ public class AssessmentInformation {
     private Integer firstExcercisePoints;
     private Integer secondExcercisePoints;
 
-    public AssessmentInformation(Double grade, Integer finalTestPoints, Integer firstExcercisePoints, Integer secondExcercisePoints) {
+    public AssessmentInformation(Double grade, Integer finalTestPoints, Integer firstExcercisePoints,
+            Integer secondExcercisePoints) {
         this.grade = grade;
         this.finalTestPoints = finalTestPoints;
         this.firstExcercisePoints = firstExcercisePoints;
@@ -51,17 +52,22 @@ public class AssessmentInformation {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         AssessmentInformation that = (AssessmentInformation) o;
 
-        if (grade != null ? !grade.equals(that.grade) : that.grade != null) return false;
+        if (grade != null ? !grade.equals(that.grade) : that.grade != null)
+            return false;
         if (finalTestPoints != null ? !finalTestPoints.equals(that.finalTestPoints) : that.finalTestPoints != null)
             return false;
-        if (firstExcercisePoints != null ? !firstExcercisePoints.equals(that.firstExcercisePoints) : that.firstExcercisePoints != null)
+        if (firstExcercisePoints != null ? !firstExcercisePoints.equals(that.firstExcercisePoints)
+                : that.firstExcercisePoints != null)
             return false;
-        return !(secondExcercisePoints != null ? !secondExcercisePoints.equals(that.secondExcercisePoints) : that.secondExcercisePoints != null);
+        return !(secondExcercisePoints != null ? !secondExcercisePoints.equals(that.secondExcercisePoints)
+                : that.secondExcercisePoints != null);
     }
 
     @Override
