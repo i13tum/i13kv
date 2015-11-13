@@ -9,10 +9,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class KVStore {
     final String middledelimiter = "#~#";
-    ConcurrentHashMap<String, String> store;
+    private final BackingMap bm;
+
+    public KVStore(BackingMap bm) {
+        this.bm = bm;
+    }
 
     public KVStore() {
-        this.store = new ConcurrentHashMap<String, String>();
+        this.bm = new BackingMap();
     }
 
     public String process(String firstLine) {
@@ -26,7 +30,7 @@ public class KVStore {
                     String table = st.nextToken();
                     String key = st.nextToken();
 
-                    String res = store.getOrDefault(table + middledelimiter + key, "ERROR");
+                    String res = bm.atomic((kv) -> kv.getOrDefault(table + middledelimiter + key, "ERROR"));
 
                     System.out.println(String.format("#GET:%s%s-%s", table, key, res));
                     return res + "\r\n";
@@ -42,10 +46,14 @@ public class KVStore {
                     String key = st.nextToken();
                     String value = st.nextToken();
 
-                    store.put(table + middledelimiter + key, value);
+                    String res = bm.atomic((kv) -> {
+                        kv.put(table + middledelimiter + key, value);
+                        return "OK\r\n";
+                    });
+
                     System.out.println(String.format("#PUT:%s%s-%s", table, key, value));
 
-                    return "OK\r\n";
+                    return res;
                 } catch (NoSuchElementException ex) {
                     return "ERROR\r\n";
                 }
@@ -55,26 +63,26 @@ public class KVStore {
                 String table = st.nextToken();
                 String key = st.nextToken();
 
-                String res = store.remove(table + middledelimiter + key);
+                String res = bm.atomic((kv) -> kv.remove(table + middledelimiter + key));
+
                 System.out.println(String.format("#DELETE:%s%s-%s", table, key, res));
 
                 return (res != null ? "DELETED" : "NOT_FOUND") + "\r\n";
 
             } else if (command.equalsIgnoreCase("EXISTS")) { // checks if the
-                                                             // key exists
-                    String table = st.nextToken();
-                    String key = st.nextToken();
+                // key exists
+                String table = st.nextToken();
+                String key = st.nextToken();
 
-                    boolean res = store.containsKey(table + middledelimiter + key);
-                    System.out.println(String.format("#EXISTS:%s%s-%s", table, key, res));
-
-                    if(res) {
+                String res = bm.atomic((kv) -> {
+                    if (kv.containsKey(table + middledelimiter + key)) {
                         return "EXISTS\r\n";
-                    }
-                    else {
+                    } else {
                         return "NOT_FOUND\r\n";
                     }
-
+                });
+                System.out.println(String.format("#%s:%s%s-%s", res.replace("\r\n", ""), table, key, res));
+                return res;
             } else {
                 return "DID_NOT_UNDERSTAND\r\n";
             }

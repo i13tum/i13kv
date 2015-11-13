@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
@@ -26,7 +27,8 @@ public class IntegrationTestKV {
     }
 
     public String doRequest(String req) throws IOException {
-        Socket s = new Socket("127.0.0.1", port);
+        Socket s = new Socket();
+        s.connect(new InetSocketAddress("127.0.0.1", port));
         String res = doRequest(s, req);
         s.close();
 
