@@ -1,10 +1,7 @@
 package de.tum.i13.server.kv;
 
-import com.sun.deploy.util.SyncAccess;
-
 import java.util.AbstractMap;
 import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
