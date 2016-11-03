@@ -2,6 +2,7 @@ package de.tum.i13.server.nio;
 
 import de.tum.i13.server.kv.KVStore;
 import de.tum.i13.shared.Constants;
+import de.tum.i13.complex.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,6 +31,8 @@ public class SimpleNioServer {
     private ServerSocketChannel serverChannel;
 
     private ByteBuffer readBuffer;
+	
+	private ComplexServer complexServer;
 
     public SimpleNioServer() {
         this.pendingChanges = new LinkedList<ChangeRequest>();
@@ -37,6 +40,8 @@ public class SimpleNioServer {
         this.pendingReads = new HashMap<SelectionKey, byte[]>();
 
         this.readBuffer = ByteBuffer.allocate(8192); // = 2^13
+		
+		this.complexServer = new ComplexServer();
     }
 
     public void bindSockets(String servername, int port) throws IOException {
@@ -212,9 +217,13 @@ public class SimpleNioServer {
 
     private void handleRequest(SelectionKey selectionKey, String request) {
         try {
-            String res = kv.process(request);
-            send(selectionKey, res.getBytes(Constants.TELNET_ENCODING));
-
+			if(request.startsWith("<")){ // Complex Request
+				String response = complexServer.processRPC(request);
+	            send(selectionKey, response.getBytes(Constants.TELNET_ENCODING));
+			} else { // KV Request
+				String res = kv.process(request);
+				send(selectionKey, res.getBytes(Constants.TELNET_ENCODING));
+			}
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
