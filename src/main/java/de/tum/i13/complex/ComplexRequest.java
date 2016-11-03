@@ -16,13 +16,39 @@ public class ComplexRequest {
 		return "<" + c1.marshal() + ";" + c2.marshal() + ";" + op.marshal() + ">";
 	}
 	
-	public static ComplexRequest unmarshal(String m1s){
+	public static ComplexRequest unmarshal(String m1s) throws ComplexRequestIncomplete, NotAComplexNumberException, NotAValidOperatorException {
 		StringTokenizer tokens = new StringTokenizer(m1s,"<;>");
+		
+		Complex c1, c2;
+		ComplexOperator op;
+		
+		String c1s = null, c2s = null, ops = null;
+		
+		if(tokens.countTokens() < 3)
+			throw new ComplexRequestIncomplete(m1s);
+		
 		try {
-			return new ComplexRequest(Complex.unmarshal(tokens.nextToken()),Complex.unmarshal(tokens.nextToken()),ComplexOperator.unmarshal(tokens.nextToken()));
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Not a complex request: " + m1s);
+			c1s = tokens.nextToken();
+			c1 = Complex.unmarshal(c1s);
+		} catch (Exception e){
+			throw new NotAComplexNumberException(c1s,1);
 		}
+		
+		try {
+			c2s = tokens.nextToken();
+			c2 = Complex.unmarshal(c2s);
+		} catch (Exception e){
+			throw new NotAComplexNumberException(c2s,2);
+		}
+		
+		try {
+			ops = tokens.nextToken();
+			op = ComplexOperator.unmarshal(ops);
+		} catch (Exception e){
+			throw new NotAValidOperatorException(ops);
+		}
+		
+		return new ComplexRequest(c1,c2,op);
 	}
 
 	@Override
@@ -61,7 +87,7 @@ public class ComplexRequest {
 			return false;
 		return true;
 	}
-	
+
 	public Complex getC1() {
 		return c1;
 	}

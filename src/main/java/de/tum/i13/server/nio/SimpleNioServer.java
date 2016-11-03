@@ -218,9 +218,8 @@ public class SimpleNioServer {
     private void handleRequest(SelectionKey selectionKey, String request) {
         try {
 			if(request.startsWith("<")){ // Complex Request
-				ComplexRequest complexRequest = ComplexRequest.unmarshal(request);
-				ComplexResponse response = complexServer.callLocalService(complexRequest.getC1(),complexRequest.getC2(),complexRequest.getOp());
-	            send(selectionKey, response.marshal().getBytes(Constants.TELNET_ENCODING));
+				String response = complexServer.processRPC(request);
+	            send(selectionKey, response.getBytes(Constants.TELNET_ENCODING));
 			} else { // KV Request
 				String res = kv.process(request);
 				send(selectionKey, res.getBytes(Constants.TELNET_ENCODING));

@@ -1,7 +1,9 @@
 package de.tum.i13;
 
-import static org.hamcrest.CoreMatchers.is;
 import de.tum.i13.complex.*;
+
+import static org.hamcrest.CoreMatchers.is;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +14,6 @@ public class ComplexTest {
 	private static final ComplexOperator.OperatorType OPERATOR = ComplexOperator.OperatorType.ADD;
 	private static final ComplexStatus.StatusType STATUS = ComplexStatus.StatusType.OK;
 	private final String COMPLEX_N = "(1.0,2.0)";
-	private final String COMPLEX_M = "(3.0,3.0)";
 	private final String COMPLEX_R = "<(1.0,2.0);(3.0,3.0);add>";
 	private final String COMPLEX_S = "<(1.0,2.0);ok>";
 	
@@ -67,15 +68,25 @@ public class ComplexTest {
 		Complex m = new Complex(M_A,M_B);
 		ComplexOperator o = new ComplexOperator(OPERATOR);
 		ComplexRequest r = new ComplexRequest(n,m,o);
-		Assert.assertThat(ComplexRequest.unmarshal(COMPLEX_R), is(r));
+		try {
+			Assert.assertThat(ComplexRequest.unmarshal(COMPLEX_R), is(r));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void requestMarshalUnmarshalTest(){
+	public void requestMarshalUnmarshalTest() {
 		Complex n = new Complex(N_A,N_B);
 		Complex m = new Complex(M_A,M_B);
 		ComplexOperator o = new ComplexOperator(OPERATOR);
 		ComplexRequest r = new ComplexRequest(n,m,o);
-		Assert.assertThat(r.marshal(), is(ComplexRequest.unmarshal(COMPLEX_R).marshal()));
+		try {
+			Assert.assertThat(r.marshal(), is(ComplexRequest.unmarshal(COMPLEX_R).marshal()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 	
 	@Test
