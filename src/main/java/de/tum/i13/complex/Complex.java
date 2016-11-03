@@ -29,7 +29,11 @@ public class Complex {
 	public static Complex unmarshal(String cs){
 		StringTokenizer tokens = new StringTokenizer(cs,"(,)");
 		
-		return new Complex(Double.parseDouble(tokens.nextToken()),Double.parseDouble(tokens.nextToken()));
+		try {
+			return new Complex(Double.parseDouble(tokens.nextToken()),Double.parseDouble(tokens.nextToken()));
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Not a complex number: " + cs);
+		}
 	}
 
 	@Override
@@ -58,5 +62,29 @@ public class Complex {
 		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
 			return false;
 		return true;
+	}
+
+	public Complex add(Complex c2) {
+		double x = this.x + c2.x;
+		double y = this.y + c2.y;
+		return new Complex(x,y);
+	}
+
+	public Complex substract(Complex c2) {
+		double x = this.x - c2.x;
+		double y = this.y - c2.y;
+		return new Complex(x,y);
+	}
+
+	public Complex multiply(Complex c2) {
+		double x = this.x * c2.x - y * c2.y;
+		double y = this.x * c2.y + this.y * c2.x;
+		return new Complex(x,y);
+	}
+
+	public Complex divide(Complex c2) {
+	    double x = (this.x*c2.x+this.y*c2.y)/(c2.x*c2.x+c2.y*c2.y);
+	    double y = (this.y*c2.x-this.x*c2.y)/(c2.x*c2.x+c2.y*c2.y);
+		return new Complex(x,y);
 	}
 }
