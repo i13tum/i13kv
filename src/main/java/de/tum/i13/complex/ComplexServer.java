@@ -12,7 +12,7 @@ public class ComplexServer {
 		ComplexRequest complexRequest = null;
 		ComplexResponse response = null;
 		
-		if(!request.matches("<.*;.*;.*>")){
+		if(!request.matches("<.*;.*;.*>\r\n")){
 			valid = false;
 			response = new ComplexResponse(new Complex(0.0,0.0), new ComplexStatus(ComplexStatus.StatusType.MSG_FORMAT_UNKNOWN));
 		}
