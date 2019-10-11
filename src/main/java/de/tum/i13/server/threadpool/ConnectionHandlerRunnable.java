@@ -32,7 +32,7 @@ public class ConnectionHandlerRunnable implements Runnable {
                 out.flush();
             }
 
-            clientSocket.close();
+            clientSocket.close(); //Here we close the socket
 
         } catch(Exception ex) {
             try {
