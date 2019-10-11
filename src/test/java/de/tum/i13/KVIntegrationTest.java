@@ -9,7 +9,7 @@ import java.net.Socket;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
 
-public class IntegrationTestKV {
+public class KVIntegrationTest {
 
     public static Integer port = 5558;
 
@@ -48,17 +48,23 @@ public class IntegrationTestKV {
         th.start(); // started the server
         Thread.sleep(2000);
 
-        for (int tcnt = 0; tcnt < 50; tcnt++){
+        for (int tcnt = 0; tcnt < 2; tcnt++){
             final int finalTcnt = tcnt;
             new Thread(){
                 @Override
                 public void run() {
                     try {
-                        Socket s = new Socket("127.0.0.1", port);
-                        System.out.println("#startednewthread:" + finalTcnt + "#socket:" + s);
-                        for(int i = 0; i < 100000; i++) {
+                        Thread.sleep(finalTcnt * 100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        for(int i = 0; i < 100; i++) {
+                            Socket s = new Socket();
+                            s.connect(new InetSocketAddress("127.0.0.1", port));
                             assertThat(doRequest(s, "PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
                             assertThat(doRequest(s, "GET table key" + finalTcnt), containsString("valuetest" + i));
+                            s.close();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -76,23 +82,25 @@ public class IntegrationTestKV {
     }
 
     @Test
-    public void doin_a_few_request_with_always_new_connections() {
-        for (int tcnt = 0; tcnt < 50; tcnt++){
+    public void doing_a_few_request_with_always_new_connections() throws Exception{
+        for (int tcnt = 0; tcnt < 3; tcnt++){
             final int finalTcnt = tcnt;
-            new Thread(){
-                @Override
-                public void run() {
-                    try {
-                        System.out.println("#startednewthread:" + finalTcnt);
-                        for(int i = 0; i < 100000; i++) {
-                            assertThat(doRequest("PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
-                            assertThat(doRequest("GET table key" + finalTcnt), containsString("valuetest" + i));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            int finalTcnt1 = tcnt;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(finalTcnt1 * 100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+                try {
+                    for(int i = 0; i < 100000; i++) {
+                        assertThat(doRequest("PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
+                        assertThat(doRequest("GET table key" + finalTcnt), containsString("valuetest" + i));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 }
