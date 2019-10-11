@@ -1,16 +1,14 @@
 package de.tum.i13;
 
-import org.junit.Assert;
-import org.junit.Test;
-import static org.hamcrest.CoreMatchers.*;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-/**
- * Created by chris on 08.01.15.
- */
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.StringContains.containsString;
+
 public class IntegrationTestKV {
 
     public static Integer port = 5558;
@@ -59,8 +57,8 @@ public class IntegrationTestKV {
                         Socket s = new Socket("127.0.0.1", port);
                         System.out.println("#startednewthread:" + finalTcnt + "#socket:" + s);
                         for(int i = 0; i < 100000; i++) {
-                            Assert.assertThat(doRequest(s, "PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
-                            Assert.assertThat(doRequest(s, "GET table key" + finalTcnt), containsString("valuetest" + i));
+                            assertThat(doRequest(s, "PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
+                            assertThat(doRequest(s, "GET table key" + finalTcnt), containsString("valuetest" + i));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -87,8 +85,8 @@ public class IntegrationTestKV {
                     try {
                         System.out.println("#startednewthread:" + finalTcnt);
                         for(int i = 0; i < 100000; i++) {
-                            Assert.assertThat(doRequest("PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
-                            Assert.assertThat(doRequest("GET table key" + finalTcnt), containsString("valuetest" + i));
+                            assertThat(doRequest("PUT table key"+ finalTcnt +" valuetest" + i), containsString("OK"));
+                            assertThat(doRequest("GET table key" + finalTcnt), containsString("valuetest" + i));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

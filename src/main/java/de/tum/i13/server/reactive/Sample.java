@@ -1,7 +1,6 @@
 package de.tum.i13.server.reactive;
 
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.rxjava3.core.Observable;
 
 import java.io.IOException;
 
@@ -12,11 +11,8 @@ public class Sample {
 
     public static void main(String[] args) throws IOException {
 
-        Observable.from(new ReadlineIterator()).subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                System.out.println("Hello " + s + "!");
-            }
+        Observable.fromIterable(new ReadlineIterator()).subscribe( (nextstring) -> {
+            System.out.println("Hello " + nextstring + "!");
         });
 
     }
